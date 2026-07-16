@@ -1,39 +1,74 @@
-# Alpha Score Tutorial AI
+# Alpha Score AI Backend
 
-A React + Vite starter app for an AI study companion focused on WAEC, JAMB, NECO, and GCE.
-
-## What’s included
-
-- React application scaffold
-- Navigation placeholders for AI Tutor, Daily Questionnaire, Past Questions, and Study Notes
-- Simple responsive UI with modern styling
+This backend uses Node.js, Express, MongoDB Atlas, Mongoose, JWT authentication, and **free uncloseai.com AI API** (no API key required).
 
 ## Setup
 
-1. Run `npm install`
-2. Run `npm run dev`
+1. Copy the environment example:
 
-## Backend setup
+   ```bash
+   cp server/.env.example server/.env
+   ```
 
-1. Change into the backend folder:
+2. Open `server/.env` and set your values:
+
+   ```env
+   MONGO_URI=your_mongodb_atlas_connection_string
+   JWT_SECRET=replace_me_with_a_strong_secret
+   # OPENAI_API_KEY no longer needed - using free uncloseai.com API
+   PORT=4000
+   ```
+
+3. Install dependencies:
+
    ```bash
    cd server
    npm install
    ```
-2. Create a `.env` file with:
-   ```env
-   JWT_SECRET=your_jwt_secret_here
-   OPENAI_API_KEY=your_openai_api_key_here
-   PORT=4000
-   ```
-3. Start the backend:
+
+4. Start the server locally:
+
    ```bash
    npm run dev
    ```
 
-## Next steps
+## API Endpoints
 
-- Add AI question generation and review flows
-- Create JSON or API-backed data for past questions and notes
-- Build user progress tracking and personalized study plans
-- Connect the frontend to `/api/*` endpoints for auth and content
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/questions/waec`
+- `GET /api/questions/jamb`
+- `GET /api/questions/waec/:id`
+- `GET /api/questions/jamb/:id`
+- `GET /api/content/subjects`
+- `GET /api/content/past-questions`
+- `GET /api/content/daily-quiz`
+- `GET /api/content/notes`
+- `POST /api/content/notes`
+- `PUT /api/content/notes/:id`
+- `DELETE /api/content/notes/:id`
+- `GET /api/content/scores`
+- `POST /api/content/scores`
+- `GET /api/content/leaderboard`
+- `GET /api/content/progress`
+- `POST /api/content/progress`
+- `POST /api/ai/tutor` (uses free uncloseai.com API)
+
+## AI Integration
+
+The AI tutor uses **uncloseai.com** - a free, OpenAI-compatible API with no signup required. It provides:
+
+- Hermes AI for general conversational responses
+- No API key needed
+- Unlimited usage for educational purposes
+
+This repo includes a `render.yaml` file for deploying the backend as a Node service.
+
+- Build command: `cd server && npm install`
+- Start command: `cd server && npm start`
+
+Set the following Render environment variables:
+
+- `MONGO_URI`
+- `JWT_SECRET`
+- `PORT`
